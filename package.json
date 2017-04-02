@@ -1,0 +1,21 @@
+{
+  "name": "web-scraping",
+  "version": "1.0.0",
+  "description": "Web scraping example with node and cheerio",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "web-scraping",
+    "cheerio"
+  ],
+  "author": "Jose Herrera",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "express": "^4.15.2",
+    "mongoose": "^4.9.2",
+    "request": "^2.81.0"
+  }
+}
