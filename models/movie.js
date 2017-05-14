@@ -22,5 +22,5 @@ var movieSchema = mongoose.Schema({
     sinopsis: String
 });
 
-var Movie = mongoose.model('Movie',movieSchema);
-module.exports = Movie;
+var Registros = mongoose.model('Registros',movieSchema);
+module.exports = Registros;

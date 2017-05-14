@@ -7,9 +7,12 @@ var request = require('request');
 var cheerio = require('cheerio');
 var mongoose = require('mongoose');
 var Movie = require('./models/movie.js');
+var Auditoria = require('./models/auditoria.js');
 
 var app = express();
-mongoose.connect('mongodb://localhost/peliculas');
+mongoose.connect('mongodb://josehr-mongo-daas:7P78G62UVYJBrVeaM7YutvlelQmgxmxqnUutIlOZdD0WNwfDqNBH5rrNjaEiQMUSRBeUIIs2W6hhkcvUw0BFqg==@josehr-mongo-daas.documents.azure.com:10255/?ssl=true');
+
+var numReg = 0;
 
 app.get('/', function(req, res){
     var url = 'http://www.cuevana3.com/';
@@ -19,8 +22,15 @@ app.get('/', function(req, res){
             callPaginationLink(url);
         }
     });
+    addAudit();
     res.send("Datos guardados con exito!");
 });
+
+function addAudit(){
+    var fechaP = new Date();
+    var auditJson = {codigo: 1, fecha: fechaP.toDateString(), pagina_web: "Cuevana 3", numero_registros: numReg, estado: "finalizado", errores: false};
+    new Auditoria(auditJson).save();
+}
 
 function callPaginationLink(url){
     request(url,function(error, response, html) {
@@ -97,8 +107,8 @@ function callPaginationLink(url){
 
                      if(json.imagen != undefined){
                          new Movie(json).save();
+                         numReg++;
                      }
-                     //console.log(json);
                  });
              });
             var nextPaginationLink = $('.current').next();
